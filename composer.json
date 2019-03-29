@@ -1,0 +1,8 @@
+{
+  "require": {
+    "edsononildo/tpl": "3.0.x-dev",
+    "edsononildo/router": "2.0.x-dev"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
