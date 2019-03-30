@@ -5,22 +5,15 @@ session_start();
 require_once "../vendor/autoload.php";
 
 use EdsonOnildo\Router\Route;
-
 use EdsonOnildo\Tpl\Tpl;
+use Bonfim\ActiveRecord\ActiveRecord;
 
 Tpl::config([
     'dev' => true,
-    'template_dir' => '../src/views/'
+    'template_dir' => dirname(getcwd()) . '/app/View/'
 ]);
 
-Route::post('/', function ($request) {
+ActiveRecord::config('mysql:host=localhost;dbname=note', 'root', 'batatapalha123');
 
-    $_SESSION['tasks'][] = $request->task;
-    header('Location: /');
-});
-
-Route::get('/', function () {
-
-    EdsonOnildo\Tpl\Tpl::assign('tasks', $_SESSION['tasks']);
-    EdsonOnildo\Tpl\Tpl::render('index');
-});
+Route::get('/', 'TasksController@get');
+Route::post('/', 'TasksController@post');

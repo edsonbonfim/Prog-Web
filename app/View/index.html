@@ -26,19 +26,32 @@
                 <li></li>
             </ul>
         </div>
-        <div class="task">
+        <div class="tasks">
             <form action="/" method="post" autocomplete="off">
-                <input type="text" placeholder="Nova tarefa" name="task" autofocus>
+                <input type="text" placeholder="Nova tarefa" name="descricao" autofocus>
             </form>
-            <ul>
-                <?php foreach ($tasks as $task) { ?>
-                <li>
-                    <?= $task ?>
+            <ul id="tasks">
+                @loop task : tasks
+                <li id="{{task.id}}" class="task">
+                    {{task.descricao}}
                     <a class="del" href=""><i class="material-icons">clear</i></a>
                 </li>
-                <?php } ?>
+                @endloop
             </ul>
         </div>
     </div>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script>
+        $(function() {
+            $('#tasks').sortable({
+                placeholder: 'task dragover',
+                update: function() {
+                    let positions = $(this).sortable('toArray');
+                    console.log(positions);
+                }
+            });
+        });
+    </script>
 </body>
 </html>

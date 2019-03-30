@@ -4,8 +4,61 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e69739f20fd47e29efc95e676293d0cf",
+    "content-hash": "6a05dd66fa2be8406b4c41d579784ac5",
     "packages": [
+        {
+            "name": "edsononildo/orm",
+            "version": "v2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EdsonOnildoJR/activerecord.php.git",
+                "reference": "c5c126e7cdc7465d8eda476bfb391e1d6639d09f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EdsonOnildoJR/activerecord.php/zipball/c5c126e7cdc7465d8eda476bfb391e1d6639d09f",
+                "reference": "c5c126e7cdc7465d8eda476bfb391e1d6639d09f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo": "*",
+                "php": "~7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=7.0",
+                "squizlabs/php_codesniffer": "^3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bonfim\\ActiveRecord\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Edson Onildo",
+                    "email": "inbox.edsononildo@gmail.com",
+                    "homepage": "https://github.com/EdsonOnildoJR",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Implementação do padrão de projeto active record em PHP",
+            "homepage": "https://github.com/EdsonOnildoJR/activerecord.php",
+            "keywords": [
+                "activerecord",
+                "bonfim"
+            ],
+            "time": "2019-03-30T12:16:33+00:00"
+        },
         {
             "name": "edsononildo/router",
             "version": "dev-master",
