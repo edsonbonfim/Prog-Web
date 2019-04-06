@@ -85,6 +85,7 @@ ul {
 
 .menu ul li {
     margin-bottom: 10px;
+    user-select: none;
 }
 
 .tasks {
@@ -93,7 +94,7 @@ ul {
     margin-left: 220px;
 }
 
-.tasks form input {
+.tasks input {
     width: 100%;
     margin-bottom: 10px;
     background: rgba(255, 255, 255, 0.5);
@@ -134,8 +135,8 @@ ul {
     float: right;
     font-weight: bold;
     border-radius: 2px;
-    /*background: red;*/
     color: rgba(0, 0, 0, 0.5);
+    user-select: none;
 }
 
 .tasks ul li .del:hover {
