@@ -2,14 +2,17 @@
 
 include '../config.php';
 
-$id = $_POST['id'];
+$id = $_POST['id'] ?? "";
+
+if (empty($id)) {
+    response('HTTP/1.1 400 Bad Request');
+}
 
 $sql = $db->prepare('DELETE FROM tasks WHERE id = ?');
 $res = $sql->execute([$id]);
 
 if ($res == 1 && $sql->rowCount() == 1) {
-    header('HTTP/1.1 204 No Content');
-    exit;
+    response('HTTP/1.1 204 No Content');
 }
 
-header('HTTP/1.1 404 Not Found');
+response('HTTP/1.1 404 Not Found');

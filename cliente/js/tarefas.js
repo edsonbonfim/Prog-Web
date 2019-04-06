@@ -1,13 +1,15 @@
+'use strict';
+
 // Get
-let getTarefas = function () {
+var getTarefas = function () {
 
-    get('/tarefa/get.php', response => {
+    get('/tarefa/get.php', (status, response) => {
 
-        if (response.status == 200) {
+        if (status == 200) {
 
-            let lista = document.querySelector("#lista");
+            var lista = document.querySelector("#lista");
             
-            JSON.parse(response.responseText).forEach(tarefa => {
+            JSON.parse(response).forEach(tarefa => {
                 addTarefa(lista, tarefa);
             });
         }
@@ -19,13 +21,16 @@ document.querySelector("#form").addEventListener('submit', ev => {
 
     ev.preventDefault();
 
-    let descricao = document.querySelector("#input");
+    var descricao = document.querySelector("#input");
 
-    post('/tarefa/post.php', 'descricao='+descricao.value, response => {
+    if (descricao.value == "")
+        return;
 
-        if (response.status == 200) {
+    post('/tarefa/post.php', 'descricao='+descricao.value, (status, response) => {
 
-            let tarefa = JSON.parse(response.responseText);
+        if (status == 200) {
+
+            var tarefa = JSON.parse(response);
             addTarefa(document.querySelector("#lista"), tarefa);
             descricao.value = "";
         }
@@ -33,21 +38,21 @@ document.querySelector("#form").addEventListener('submit', ev => {
 });
 
 // Delete
-let del = function (id) {
+var del = function (id) {
 
-    post('/tarefa/del.php', 'id='+id, response => {
+    post('/tarefa/del.php', 'id='+id, status => {
 
-        if (response.status == 204) {
+        if (status == 204) {
 
-            let li = document.querySelector('#li'+id);
+            var li = document.querySelector('#li'+id);
             li.remove();
         }
     });
 };
 
-let addTarefa = function (lista, tarefa) {
+var addTarefa = function (lista, tarefa) {
 
-    let li = document.createElement('li');
+    var li = document.createElement('li');
 
     li.innerHTML = '<li id="li'+tarefa.id+'" class="task">'+
                         tarefa.descricao +

@@ -1,30 +1,30 @@
 'use strict';
 
-let server = 'http://localhost:1234';
+var server = 'http://0.0.0.0:1234';
 
-let post = function(url, body, callback) {
+var post = function(url, body, callback) {
 
-    let http = new XMLHttpRequest();
+    var http = new XMLHttpRequest();
     http.open('POST', server+url, true);
     http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     http.send(body);
 
     http.onreadystatechange = function () {
         if (http.readyState == 4) {
-            callback(http);
+            callback(http.status, http.response);
         }
     }
 }
 
-let get = function(url, callback) {
+var get = function(url, callback) {
 
-    let http = new XMLHttpRequest();
+    var http = new XMLHttpRequest();
     http.open('GET', server+url, true);
     http.send();
 
     http.onreadystatechange = function () {
         if (http.readyState == 4) {
-            callback(http);
+            callback(http.status, http.response);
         }
     }
 }

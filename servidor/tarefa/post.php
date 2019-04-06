@@ -2,13 +2,16 @@
 
 include '../config.php';
 
-$descricao = $_POST['descricao'];
+$descricao = clean($_POST['descricao']) ?? "";
+
+if (empty($descricao)) {
+    response('HTTP/1.1 400 Bad Request');
+}
 
 $sql = $db->prepare('INSERT INTO tasks (descricao) VALUES (?)');
 $sql->execute([$descricao]);
 
 $id = $db->lastInsertId();
-
 $sql = $db->prepare('SELECT * FROM tasks WHERE id = ?');
 $sql->execute([$id]);
 
