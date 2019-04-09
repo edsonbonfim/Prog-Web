@@ -1,13 +1,13 @@
 'use strict';
 
 // Get
-var getTarefas = function () {
+let getTarefas = () => {
 
     get('/tarefa/get.php', (status, response) => {
 
         if (status == 200) {
 
-            var lista = document.querySelector("#lista");
+            let lista = document.querySelector("#lista");
             
             JSON.parse(response).forEach(tarefa => {
                 addTarefa(lista, tarefa);
@@ -21,7 +21,7 @@ document.querySelector("#form").addEventListener('submit', ev => {
 
     ev.preventDefault();
 
-    var descricao = document.querySelector("#input");
+    let descricao = document.querySelector("#input");
 
     if (descricao.value == "")
         return;
@@ -30,7 +30,7 @@ document.querySelector("#form").addEventListener('submit', ev => {
 
         if (status == 200) {
 
-            var tarefa = JSON.parse(response);
+            let tarefa = JSON.parse(response);
             addTarefa(document.querySelector("#lista"), tarefa);
             descricao.value = "";
         }
@@ -38,21 +38,21 @@ document.querySelector("#form").addEventListener('submit', ev => {
 });
 
 // Delete
-var del = function (id) {
+let del = (id) => {
 
     post('/tarefa/del.php', 'id='+id, status => {
 
         if (status == 204) {
 
-            var li = document.querySelector('#li'+id);
+            let li = document.querySelector('#li'+id);
             li.remove();
         }
     });
 };
 
-var addTarefa = function (lista, tarefa) {
+let addTarefa = (lista, tarefa) => {
 
-    var li = document.createElement('li');
+    let li = document.createElement('li');
 
     li.innerHTML = '<li id="li'+tarefa.id+'" class="task">'+
                         tarefa.descricao +

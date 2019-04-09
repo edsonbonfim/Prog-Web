@@ -5,7 +5,7 @@ include '../config.php';
 $descricao = clean($_POST['descricao']) ?? "";
 
 if (empty($descricao)) {
-    response('HTTP/1.1 400 Bad Request');
+    response('400 Bad Request');
 }
 
 $sql = $db->prepare('INSERT INTO tasks (descricao) VALUES (?)');

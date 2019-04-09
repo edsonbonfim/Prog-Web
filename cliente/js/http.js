@@ -1,10 +1,10 @@
 'use strict';
 
-var server = 'http://0.0.0.0:1234';
+let server = 'http://localhost:3000';
 
-var post = function(url, body, callback) {
+let post = (url, body, callback) => {
 
-    var http = new XMLHttpRequest();
+    let http = new XMLHttpRequest();
     http.open('POST', server+url, true);
     http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     http.send(body);
@@ -16,9 +16,9 @@ var post = function(url, body, callback) {
     }
 }
 
-var get = function(url, callback) {
+let get = (url, callback) => {
 
-    var http = new XMLHttpRequest();
+    let http = new XMLHttpRequest();
     http.open('GET', server+url, true);
     http.send();
 

@@ -6,7 +6,7 @@ $db = new PDO('mysql:host=localhost;dbname=note', 'root', '');
 
 function response($response)
 {
-    header($response);
+    header("HTTP/1.1 $response");
     exit;
 }
 
