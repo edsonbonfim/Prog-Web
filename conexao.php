@@ -1,8 +1,6 @@
 <?php
 
-header('Access-Control-Allow-Origin: *');
-
-$db = new PDO('mysql:host=localhost;dbname=note', 'root', '');
+$dbh = new PDO('mysql:host=localhost;dbname=note', 'root', '');
 
 function response($response)
 {
