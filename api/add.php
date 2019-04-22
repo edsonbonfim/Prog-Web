@@ -1,6 +1,6 @@
 <?php
 
-include '../../conexao.php';
+include '../conexao.php';
 
 $sth = $dbh->prepare('INSERT INTO tasks (descricao) VALUES (?)');
 $sth->execute([$_POST['descricao']]);
