@@ -1,52 +1,41 @@
 <?php
-    session_start();
-    if (!isset($_SESSION['id'])) header('Location: /');
-?>
-<!doctype html>
-<html lang="pt-BR">
 
+include 'api/Done.php';
+Done::checkLogin(true);
+
+?>
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"-->
-    <link rel="stylesheet" href="css/style.css">
-    <title>Note</title>
+    <title>Done</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Roboto+Mono:400,500|Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/dashboard.css">
 </head>
-
-<body onload="app.get()">
+<body onload="Done.dashboard()">
 
     <header>
-        <div class="content">
-            <h1>NOTE</h1>
-            <div class="user">
-                <button class="btn" onclick="app.logout()">Sair</button>
-            </div>
-        </div>
+        <img src="img/logo-login.png" alt="Done">
     </header>
-    <div class="content">
-        <div class="menu">
-            <ul>
-                <li>
-                    <div class="btn btn-menu">Tarefas</div>
-                </li>
-                <!--li>
-                    <div class="btn btn-active">Projetos</div>
-                </li-->
-            </ul>
-        </div>
-        <div class="tasks">
-            <form id="form" onsubmit="app.add(event, this)">
-                <input type="text" id="input" placeholder="Nova tarefa" name="descricao" autofocus autocomplete="off">
-            </form>
-            <ul id="lista">
-            </ul>
+    
+    <div class="tasks">
+        <form id="form" onsubmit="Done.add(event, this)">
+            <input type="text" id="input" placeholder="Nova tarefa" name="descricao" autofocus autocomplete="off">
+        </form>
+        <ul id="lista">
+        </ul>
+
+        <div class="text">
+            <a onclick="Done.logout(event)">Sair</a>
         </div>
     </div>
-    <script src="js/Tarefas.js"></script>
-    <script>
-        let app = new Tarefas();
-    </script>
-</body>
 
+    <script src="js/Done.js"></script>
+    <script>
+        window.setInterval(Done.dashboard, 5000);
+    </script>
+
+</body>
 </html>

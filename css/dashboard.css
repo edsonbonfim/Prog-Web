@@ -1,0 +1,65 @@
+@import url('style.css');
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+ul {
+    width: 100%;
+    float: left;
+}
+
+ul, li {
+    list-style: none;
+}
+
+input {
+    width: 100%;
+}
+
+.tasks {
+    width: 800px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.task {
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    padding: 7px 10px;
+    font-size: 12px;
+    font-weight: normal;
+    color: rgba(0, 0, 0, .8);
+    margin-bottom: 10px;
+}
+
+.tasks ul li:hover {
+    cursor: pointer;
+    background-color: #eee;
+}
+
+.tasks ul li .del {
+    margin: -7px -10px;
+    padding: 4px;
+    float: right;
+    font-weight: bold;
+    border-radius: 2px;
+    user-select: none;
+}
+
+.tasks ul li .del:hover {
+    background-color: #ddd;
+}
+
+.tasks ul li .del i {
+    font-size: 20px;
+}
+
+.edit {
+    float: left;
+    width: calc(100% - 50px);
+    background: #000;
+}

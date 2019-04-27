@@ -1,8 +1,5 @@
 <?php
 
-session_start();
+include 'Done.php';
 
-$_SESSION['id'] = null;
-
-unset($_SESSION['id']);
-unset($_SESSION);
+Done::logout();

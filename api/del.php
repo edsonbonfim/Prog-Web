@@ -1,8 +1,6 @@
 <?php
 
-include '../conexao.php';
+include 'BD.php';
 
 $id = $_POST['id'];
-
-$sth = $dbh->prepare('DELETE FROM tasks WHERE id = ?');
-$sth->execute([$id]);
+$sth = BD::exec('DELETE FROM tasks WHERE id = ?', [$id]);

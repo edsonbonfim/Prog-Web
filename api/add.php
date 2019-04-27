@@ -1,10 +1,9 @@
 <?php
 
-include '../conexao.php';
+include 'BD.php';
 
-$sth = $dbh->prepare('INSERT INTO tasks (descricao) VALUES (?)');
-$sth->execute([$_POST['descricao']]);
+$sth = BD::exec('INSERT INTO tasks (descricao) VALUES (?)', [$_POST['descricao']]);
 
-$_POST['id'] = $dbh->lastInsertId();
+$_POST['id'] = BD::lastInsertId();
 
 echo json_encode($_POST);

@@ -1,8 +1,7 @@
 <?php
 
-include '../conexao.php';
+include 'BD.php';
 
-$sth = $dbh->prepare('SELECT * FROM tasks');
-$sth->execute();
+$sth = BD::exec('SELECT * FROM tasks');
 
 echo json_encode($sth->fetchAll(PDO::FETCH_OBJ));
