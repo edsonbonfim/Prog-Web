@@ -6,7 +6,13 @@ use PDO;
 
 class Usuarios extends BD
 {
-    public static function get($user, $senha)
+    public static function get($id)
+    {
+        $sth = self::query('SELECT id_usuario, nome, usuario, email FROM tabela WHERE usuario = ? OR email = ?', [$id, $id]);
+        return $sth->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function get1($user, $senha)
     {
         $sth = self::query('SELECT id_usuario, nome, usuario, email FROM tabela WHERE (usuario = ? OR email = ?) AND senha = ?', [$user, $user, md5($senha)]);
         return $sth->fetch(PDO::FETCH_ASSOC);

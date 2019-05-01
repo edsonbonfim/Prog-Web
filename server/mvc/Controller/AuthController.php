@@ -25,7 +25,7 @@ class AuthController
         if (!User::check(['usuario', 'email'], [$user, $user]))
             return self::send(false, 'Usuário não cadastrado');
 
-        if (!$user = User::get($user, $senha))
+        if (!$user = User::get1($user, $senha))
             return self::send(false, 'Senha inválida');
 
         return json_encode(['status' => true, 'user' => $user]);
