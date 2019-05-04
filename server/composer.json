@@ -1,9 +1,0 @@
-{
-    "autoload": {
-        "psr-4": {
-            "Model\\": "mvc/Model/",
-            "View\\": "mvc/View/",
-            "Controller\\": "mvc/Controller/"
-        }
-    }
-}

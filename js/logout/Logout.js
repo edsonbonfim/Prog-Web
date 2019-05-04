@@ -7,9 +7,7 @@ export class Logout
     constructor() {
 
         Auth.checkLogin(true)
-
         localStorage.clear()
-
         new Route('/')
     }
 }

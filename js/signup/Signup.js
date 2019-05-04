@@ -1,7 +1,6 @@
 'use strict'
 
 import { $, Auth, Route } from '../Done.js'
-import { Login } from '../login/Login.js'
 
 export class Signup {
 
@@ -103,11 +102,11 @@ export class Signup {
             body.append('nome', this.body.get('nome'))
             body.append('email', this.body.get('email'))
 
-            fetch('/api/auth/signup', { method: 'post', body })
+            fetch('/api?signup', { method: 'post', body })
                 .then(response => response.json())
-                .then(response => {
-                    body.set('login', body.get('usuario'))
-                    Login.login({ body })
+                .then(user => {
+                    localStorage.setItem('user', JSON.stringify(user))
+                    new Route('/tarefas')
                 })
                 .catch(e => { throw Error(e) })
         })

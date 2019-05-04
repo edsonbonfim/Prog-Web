@@ -96,7 +96,7 @@ class Auth {
     }
 
     static checkUser(user, callback) {
-        fetch('/api/usuarios/' + user)
+        fetch('/api?user=' + user)
             .then(response => response.json())
             .then(user => callback(user))
             .catch(e => { throw Error(e) })
