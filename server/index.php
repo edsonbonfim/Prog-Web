@@ -2,35 +2,28 @@
 
 header('Access-Control-Allow-Origin: *'); 
 
-set_error_handler(function($errno, $errstr, $errfile, $errline) {
-    echo json_encode([
-        'errno' => $errno,
-        'errstr' => $errstr,
-        'errfile' => $errfile,
-        'errline' => $errline
-    ]);
-    exit;
-});
-
-include 'vendor/autoload.php';
+include getcwd() . '/server/vendor/autoload.php';
 
 $uri = $_SERVER['REQUEST_URI'];
 
-if (!preg_match('/\.(?:png|jpg|jpeg|gif)$/', $uri)) {
+$args = array_values(array_filter(explode('/', $uri)));
 
-    $args = array_values(array_filter(explode('/', $uri)));
-
-    if ($args[0] == 'auth' && $args[1] == 'login')
+if (@$args[0] == 'api')
+{
+    
+    if (@$args[1] == 'auth' && @$args[2] == 'login')
         new View\LoginView();
-
-    else if ($args[0] == 'auth' && $args[1] == 'signup')
+    
+    else if (@$args[1] == 'auth' && @$args[2] == 'signup')
         new View\SignUpView();
-
-    else if ($args[0] == 'usuarios') {
-        if (!isset($args[1])) {
+    
+    else if (@$args[1] == 'usuarios') {
+        if (!isset($args[2])) {
             echo json_encode(false);
         } else {
-            new View\UsuariosView($args[1]);
+            new View\UsuariosView(@$args[2]);
         }
     }
+
+    exit;
 }

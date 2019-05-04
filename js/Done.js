@@ -50,7 +50,7 @@ class Done {
             ev.preventDefault()
             let form = ev.target
             let body = new FormData(form)
-            callback({ form, body })
+            callback({ ev, form, body })
         })
     }
 
@@ -96,7 +96,7 @@ class Auth {
     }
 
     static checkUser(user, callback) {
-        fetch('http://localhost:3000/usuarios/' + user)
+        fetch('/api/usuarios/' + user)
             .then(response => response.json())
             .then(user => callback(user))
             .catch(e => { throw Error(e) })

@@ -20,18 +20,25 @@ export class Login {
         $('#link-forget').click(a => alert('Este recurso ainda nao esta disponivel'))
 
         // Evento disparado quando o formulario de login for submetido
-        $('form').submit(this.login.bind(this))
+        $('form').submit(Login.login)
     }
 
-    login({ body }) {
+    static login({ body }) {
 
-        fetch('http://localhost:3000/auth/login', { method: 'post', body })
+        let btn = $('button')
+
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'
+        btn.disabled = true
+
+        fetch('/api/auth/login', { method: 'post', body })
             .then(response => response.json())
             .then(response => {
                 if (!response.status) {
                     let msg = $('p')
                     msg.innerText = response.statusText
                     msg.style = 'color: red; font-weight: bold'
+                    btn.innerHTML = 'Entrar'
+                    btn.disabled = false
                     throw Error(response.statusText)
                 }
                 localStorage.setItem('user', JSON.stringify(response.user))

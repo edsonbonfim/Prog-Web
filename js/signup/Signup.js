@@ -1,6 +1,6 @@
 'use strict'
 
-import { $, Auth } from '../Done.js'
+import { $, Auth, Route } from '../Done.js'
 import { Login } from '../login/Login.js'
 
 export class Signup {
@@ -43,6 +43,11 @@ export class Signup {
 
     passo2({ body }) {
 
+        let btn = $('button')
+
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'
+        btn.disabled = true
+
         // Checar se o email informado esta cadastrado
         Auth.checkUser(body.get('email'), user => {
 
@@ -54,6 +59,8 @@ export class Signup {
                 let p = $('p')
                 p.innerText = 'E-mail já cadastrado'
                 p.style = 'color: rgb(255, 0, 0); font-weight: bold'
+                btn.innerHTML = 'Continuar'
+                btn.disabled = false
                 throw Error(p.innerText)
             }
 
@@ -76,6 +83,11 @@ export class Signup {
 
     signup({ body }) {
 
+        let btn = $('button')
+
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'
+        btn.disabled = true
+
         // Checar se o usuario informado esta cadastrado
         Auth.checkUser(body.get('usuario'), user => {
 
@@ -83,18 +95,19 @@ export class Signup {
                 let p = $('p')
                 p.innerText = 'Usuário já cadastrado'
                 p.style = 'color: rgb(255, 0, 0); font-weight: bold'
+                btn.innerHTML = 'Criar minha conta'
+                btn.disabled = false
                 throw Error(p.innerText)
             }
 
             body.append('nome', this.body.get('nome'))
             body.append('email', this.body.get('email'))
 
-            fetch('http://localhost:3000/auth/signup', { method: 'post', body })
+            fetch('/api/auth/signup', { method: 'post', body })
                 .then(response => response.json())
-                .then(() => {
-                    body.append('login', body.get('usuario'))
-                    let login = new Login()
-                    login.login({ body })
+                .then(response => {
+                    body.set('login', body.get('usuario'))
+                    Login.login({ body })
                 })
                 .catch(e => { throw Error(e) })
         })
