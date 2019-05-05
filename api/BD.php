@@ -8,8 +8,8 @@ class BD
     {
         if (!isset(self::$dbh) || is_null(self::$dbh))
         {
-            self::$dbh = new PDO('mysql:host=localhost;dbname=id9378600_done', 'id9378600_done', 'donedone');
-            // self::$dbh = new PDO('mysql:host=localhost;dbname=done', 'root', '');
+            // self::$dbh = new PDO('mysql:host=localhost;dbname=id9378600_done', 'id9378600_done', 'donedone');
+            self::$dbh = new PDO('mysql:host=localhost;dbname=done', 'root', '');
             self::$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         return self::$dbh;

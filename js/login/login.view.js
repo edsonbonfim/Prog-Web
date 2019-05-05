@@ -6,11 +6,11 @@ const login = /*html*/`
         done
     </div>
 
-    <p>Não pense por muito tempo; faça.</p>
+    <p>Entre com a sua conta</p>
 
     <form>
-        <input type="text" class="input" name="user" placeholder="E-mail ou usuário" autocomplete="off" required minlength="3">
-        <input type="password" class="input" name="senha" placeholder="Senha" required minlength="8">
+        <input type="text" class="input" name="user" placeholder="E-mail ou usuário"  required minlength="3">
+        <input type="password" class="input senha" name="senha" placeholder="Senha" required minlength="8">
         <button type="submit" class="btn">Entrar</button>
     </form>
 
