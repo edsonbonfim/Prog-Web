@@ -1,6 +1,7 @@
 'use strict'
 
 import { $, Auth } from '../Done.js'
+import { view } from './tarefas.view.js'
 
 export class Tarefas {
 
@@ -10,7 +11,7 @@ export class Tarefas {
 
         this.user = JSON.parse(localStorage.getItem('user'))
 
-        $('body').render('tarefas/tarefas')
+        $('body').innerHTML = view.user
 
         $('h1').innerText = `Ola, ${this.user.nome}`
     }

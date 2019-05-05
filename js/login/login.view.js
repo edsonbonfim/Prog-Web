@@ -1,3 +1,5 @@
+const login = /*html*/`
+
 <div class="auth">
     <div class="logo">
         <img src="img/done.png">
@@ -14,3 +16,7 @@
 
     <a id="link-signup" href="/signup">Criar uma conta</a> | <a id="link-forget" href="/forget">Esqueceu sua senha?</a>
 </div>
+
+`
+
+export const view = { login }

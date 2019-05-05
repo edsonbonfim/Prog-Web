@@ -1,25 +1,25 @@
 'use strict'
 
 import { $, Auth, Route } from '../Done.js'
+import { view } from './signup.view.js'
 
 export class Signup {
 
     constructor() {
 
         Auth.checkLogin(false)
-
+ 
         this.body = new FormData()
 
         // Renderiza a pagina de cadastro
-        $('body').render('signup/signup')
+        $('#done').innerHTML = view.header
 
         this.passo1()
     }
 
     passo1() {
 
-        // Renderiza o primeiro passo do formulario de cadastro
-        $('#form').render('signup/passo1')
+        $('#form').innerHTML = view.passo1
 
         let nome = $('[name=nome]')
 
@@ -64,7 +64,7 @@ export class Signup {
             }
 
             // Renderiza o segundo passo do formulario de cadastro
-            $('#form').render('signup/passo2')
+            $('#form').innerHTML = view.passo2
 
             // Foco no primeiro input do formulario
             $('[name=usuario]').focus()
@@ -102,7 +102,7 @@ export class Signup {
             body.append('nome', this.body.get('nome'))
             body.append('email', this.body.get('email'))
 
-            fetch('/api?signup', { method: 'post', body })
+            fetch('/api/?signup', { method: 'post', body })
                 .then(response => response.json())
                 .then(user => {
                     localStorage.setItem('user', JSON.stringify(user))

@@ -2,8 +2,6 @@
 
 include 'BD.php';
 
-use PDO;
-
 class Usuarios extends BD
 {
     public static function get(string $user): ?array

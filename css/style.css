@@ -1,5 +1,4 @@
 @import url('https://use.fontawesome.com/releases/v5.8.1/css/all.css');
-
 @font-face {
     font-family: Quantify;
     src: url('../font/Quantify.ttf');
@@ -32,6 +31,24 @@ button {
 
 button:disabled:hover {
     cursor: not-allowed;
+}
+
+progress[value] {
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    display: block;
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+}
+
+progress[value]::-webkit-progress-bar {
+    background-color: inherit;
+}
+
+progress[value]::-webkit-progress-value {
+    background-color: #188173;
 }
 
 .auth {

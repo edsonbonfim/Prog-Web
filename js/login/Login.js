@@ -1,6 +1,5 @@
-'use strict'
-
 import { $, Auth, Route } from '../Done.js';
+import { view } from './login.view.js'
 
 export class Login {
 
@@ -9,7 +8,7 @@ export class Login {
         Auth.checkLogin(false)
 
         // Renderiza a pagina de login
-        $('body').render('login/login')
+        $('#done').innerHTML = view.login
 
         this.btn = $('button')
 
@@ -30,22 +29,20 @@ export class Login {
         this.btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'
         this.btn.disabled = true
 
-        console.log(body.get('user'))
-
-        fetch(`/api?user=${body.get('user')}`)
+        fetch(`/api/?user=${body.get('user')}`)
             .then(response => response.json())
             .then(user => {
                 if (!user) this.error('Usuário inválido')
-            })
 
-        fetch('/api?login', { method: 'post', body })
-            .then(response => response.json())
-            .then(user => {
-                if (!user)
-                    this.error('Senha inválida')
+                fetch('/api/?login', { method: 'post', body })
+                    .then(response => response.json())
+                    .then(user => {
+                        if (!user)
+                            this.error('Senha inválida')
 
-                localStorage.setItem('user', JSON.stringify(user))
-                new Route('/tarefas')
+                        localStorage.setItem('user', JSON.stringify(user))
+                        new Route('/tarefas')
+                    })
             })
     }
 

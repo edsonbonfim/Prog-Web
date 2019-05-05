@@ -1,12 +1,14 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require 'Usuarios.php';
 
-function call($class, $method)
+function view($a)
 {
-    $args = $_SERVER['REQUEST_METHOD'] == 'GET' ? $_GET : $_POST;
-    $res = call_user_func_array([$class, $method], array_values($args));
-    echo json_encode($res);
+    echo json_encode($a);
     exit;
 }
 
@@ -15,12 +17,18 @@ extract($_GET);
 $method = strtolower($_SERVER['REQUEST_METHOD']);
 
 if (isset($user) && $method == 'get')
-    call(Usuarios::class, 'get');
+    view(Usuarios::get($user));
 
 if (isset($login) && $method == 'post')
-    call(Usuarios::class, 'login');
+{
+    extract($_POST);
+    view(Usuarios::login($user, $senha));
+}
 
 if (isset($signup) && $method == 'post')
-    call(Usuarios::class, 'signup');
+{
+    extract($_POST);
+    view(Usuarios::signup($nome, $usuario, $email, $senha));
+}
 
-header('HTTP/1.1 404 Not Found');
+echo json_encode(null);

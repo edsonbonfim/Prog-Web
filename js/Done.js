@@ -23,11 +23,38 @@ class Done {
         this.elem = document.querySelector(q)
     }
 
-    render(url) {
+    render(url, callback) {
+
+        let progress = document.createElement('progress')
+
         let http = new XMLHttpRequest()
-        http.open('get', '/js/' + url + '.html', false)
+
+        http.open('GET', '/js/' + url + '.html', true)
+
+        http.onprogress = e => {
+            if (e.lengthComputable) {
+                progress.max = e.total
+                progress.value = e.loaded
+            }
+        }
+
+        http.onloadstart = e => {
+            progress.value = 1
+            document.body.appendChild(progress)
+        }
+
+        http.onloadend = e => {
+            progress.value = e.loaded
+            progress.remove()
+        }
+
+        http.onreadystatechange = () => {
+            if (http.readyState == 4 && http.status == 200) {
+                callback(this.elem, http.response)
+            }
+        }
+
         http.send(null)
-        this.elem.innerHTML = http.response
     }
 
     focus() {
@@ -96,7 +123,7 @@ class Auth {
     }
 
     static checkUser(user, callback) {
-        fetch('/api?user=' + user)
+        fetch('/api/?user=' + user)
             .then(response => response.json())
             .then(user => callback(user))
             .catch(e => { throw Error(e) })
