@@ -14,10 +14,6 @@ ul, li {
     list-style: none;
 }
 
-input {
-    width: 100%;
-}
-
 .tasks {
     width: 800px;
     margin: 0 auto;

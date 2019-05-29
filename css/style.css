@@ -1,14 +1,15 @@
 @import url('https://use.fontawesome.com/releases/v5.8.1/css/all.css');
 @font-face {
-    font-family: Quantify;
-    src: url('../font/Quantify.ttf');
+    font-family: cyberdyne;
+    src: url('../font/cyberdyne.ttf');
 }
 
 * {
     margin: 0px;
     padding: 0px;
     color: #fff;
-    font-family: "Roboto", sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    box-sizing: border-box;
 }
 
 body {
@@ -19,10 +20,14 @@ a {
     text-decoration: none;
 }
 
-p, a {
+.auth p, .auth a {
     margin-bottom: 30px;
     font-size: 12px;
     text-transform: uppercase;
+}
+
+ul, li {
+    list-style: none;
 }
 
 button {
@@ -35,9 +40,53 @@ button:disabled:hover {
 
 /* Input */
 
+textarea, input, .input {
+    display: flex;
+    border: 0;
+    padding: 10px 5px;
+    width: 100%;
+    margin: auto auto 30px;
+    font-size: 15px;
+    background: inherit;
+    border-bottom: 1px solid #ccc;
+}
+
+.input {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+textarea:focus, input:focus {
+    outline: none;
+}
+
 input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, textarea:-webkit-autofill, textarea:-webkit-autofill:hover, textarea:-webkit-autofill:focus, select:-webkit-autofill, select:-webkit-autofill:hover, select:-webkit-autofill:focus {
     -webkit-text-fill-color: #fff;
     transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Button */
+
+button {
+    margin: 0 auto;
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+    background: #188173;
+    border-radius: 2px;
+    text-transform: uppercase;
+    font-size: 13px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 0 2px #0a433f;
+    margin-bottom: 30px;
+}
+
+/* Header */
+
+header {
+    width: 100%;
+    height: 30px;
+    color: red;
 }
 
 /* Auth */
@@ -56,49 +105,114 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
     margin: auto;
 }
 
+/* Estilo aplicado apenas se a tela for <= 480px */
 @media only screen and (max-device-width: 480px) {
     .auth {
         width: 90%;
     }
 }
 
-.auth input {
-    width: 100%;
-    display: flex;
-    border: 0;
-    margin: auto auto 30px;
-}
-
-.auth input:focus {
-    outline: none;
-}
-
-.auth .input {
-    width: calc(100% - 10px);
-    font-size: 15px;
-    padding: 10px 5px;
-    background: inherit;
-    border-bottom: 1px solid #ccc;
-}
-
-.auth .btn {
+.auth .logo {
     display: block;
-    width: 100%;
-    padding: 12px 0;
-    background: #188173;
-    border-radius: 2px;
-    text-transform: uppercase;
-    font-size: 13px;
-    text-align: center;
-    cursor: pointer;
-    box-shadow: 0 0 2px #0a433f;
     margin-bottom: 30px;
 }
 
-.auth .logo {
-    font-family: Quantify;
-    font-size: 50px;
-    font-weight: normal;
+.auth .logo span {
+    font-family: cyberdyne;
+    font-size: 45px;
     color: #fff;
     margin-bottom: 30px;
+    padding: 0;
+    /* margin: -2px; */
+}
+
+/* Home */
+
+header {
+    display: flex;
+    width: 100%;
+    height: 60px;
+    background-color: #188173;
+}
+
+header .logo {
+    margin: auto 0;
+}
+
+header .logo h1 {
+    font-family: cyberdyne !important;
+    font-size: 30px;
+    font-weight: normal;
+    float: left;
+}
+
+header .menu {
+    float: right;
+}
+
+/* Conteudo Principal */
+
+.content {
+    margin: auto;
+    width: 800px;
+    padding: 20px;
+}
+
+@media only screen and (max-device-width: 480px) {
+    .content {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-device-width: 800px) {
+    .content {
+        width: 100%;
+    }
+}
+
+main > .content {
+    margin-top: 20px;
+    /* border-radius: 2px; */
+    /* background: #fff; */
+    /* border: 1px solid #eaeaea; */
+    /* box-shadow: 0 0 2px #eaeaea; */
+}
+
+#formulario {
+    margin-bottom: 30px;
+}
+
+main ul {
+    width: 100%;
+    display: inline-block;
+}
+
+main ul li {
+    margin-bottom: 15px;
+    border-radius: 2px;
+    /* border: 1px solid #ccc; */
+    background: rgba(0,0,0,0.3);
+}
+
+main input {
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+main ul li p.titulo {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+
+main ul li > .header {
+    padding: 15px;
+    box-shadow: 0 0 3px #000;
+    cursor: pointer;
+}
+
+main ul li > .main {
+    padding: 15px;
+    background: rgba(0,0,0,0.5);
+    line-height: 30px;
 }

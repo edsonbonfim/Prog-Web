@@ -2,8 +2,7 @@ const header = /*html*/`
 
 <div class="auth">
     <div class="logo">
-        <img src="img/done.png">
-        done
+        <span>NOte</span>
     </div>
     <div id="form"></div>
 </div>
@@ -12,7 +11,7 @@ const header = /*html*/`
 
 const passo1 = /*html*/`
 
-<p>Informe os dados para criar sua conta:</p>
+<p>Informe os dados para criar sua conta</p>
 
 <form id="form-continuar">
     <input type="text" class="input" name="nome" placeholder="Nome Completo" autocomplete="off" required minlength="3">

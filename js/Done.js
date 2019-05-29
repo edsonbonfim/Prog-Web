@@ -81,11 +81,22 @@ class Done {
         })
     }
 
+    listener(name, callback) {
+        this.elem.addEventListener(name, function __callback(event) {
+            event.preventDefault()
+            callback({event, target: event.target, callback: __callback})
+        }, true)
+    }
+
     click(callback) {
         this.elem.addEventListener('click', ev => {
             ev.preventDefault()
             callback(ev.target)
         })
+    }
+
+    appendChild(child) {
+        return this.elem.appendChild(child)
     }
 }
 

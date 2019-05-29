@@ -18,7 +18,7 @@ export class Login {
         // Link que carrega a pagina de criar conta
         $('#link-signup').link()
 
-        $('#link-forget').click(a => alert('Este recurso ainda nao esta disponivel'))
+        // $('#link-forget').click(a => alert('Este recurso ainda nao esta disponivel'))
 
         // Evento disparado quando o formulario de login for submetido
         $('form').submit(this.login.bind(this))

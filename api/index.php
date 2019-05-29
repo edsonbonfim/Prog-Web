@@ -1,34 +1,34 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-require 'Usuarios.php';
-
-function view($a)
-{
-    echo json_encode($a);
-    exit;
-}
+require_once 'Usuarios.php';
+require_once 'Tarefas.php';
 
 extract($_GET);
 
-$method = strtolower($_SERVER['REQUEST_METHOD']);
-
-if (isset($user) && $method == 'get')
-    view(Usuarios::get($user));
-
-if (isset($login) && $method == 'post')
+switch ($acao)
 {
-    extract($_POST);
-    view(Usuarios::login($user, $senha));
+    case 'login':
+        extract($_POST);
+        $dados = Usuarios::login($user, $senha);
+        break;
+
+    case 'signup':
+        extract($_POST);
+        $dados = Usuarios::signup($nome, $usuario, $email, $senha);
+        break;
+
+    case 'getUser':
+        $dados = Usuarios::get($user);
+        break;
+
+    case 'getTarefas':
+        $dados = (!isset($user)) ? Tarefas::getAll() : Tarefas::get($user);
+        break;
+
+    case 'addTarefa':
+        extract($_POST);
+        $dados = Tarefas::add($user, $titulo, $descricao);
+        break;
 }
 
-if (isset($signup) && $method == 'post')
-{
-    extract($_POST);
-    view(Usuarios::signup($nome, $usuario, $email, $senha));
-}
-
-echo json_encode(null);
+echo json_encode($dados);

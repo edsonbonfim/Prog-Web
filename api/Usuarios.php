@@ -1,6 +1,6 @@
 <?php
 
-include 'BD.php';
+require_once 'BD.php';
 
 class Usuarios extends BD
 {
@@ -27,7 +27,7 @@ class Usuarios extends BD
         
         if ($sth->rowCount() != 1)
             return null;
-        
+
         return [
             'id_usuario' => self::lastInsertId(),
             'nome' => $nome,

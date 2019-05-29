@@ -2,8 +2,7 @@ const login = /*html*/`
 
 <div class="auth">
     <div class="logo">
-        <img src="img/done.png">
-        done
+        <span>NOte</span>
     </div>
 
     <p>Entre com a sua conta</p>
@@ -14,7 +13,7 @@ const login = /*html*/`
         <button type="submit" class="btn">Entrar</button>
     </form>
 
-    <a id="link-signup" href="/signup">Criar uma conta</a> | <a id="link-forget" href="/forget">Esqueceu sua senha?</a>
+    <a id="link-signup" href="/signup">Criar uma conta</a><!-- | <a id="link-forget" href="/forget">Esqueceu sua senha?</a-->
 </div>
 
 `
