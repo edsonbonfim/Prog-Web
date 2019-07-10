@@ -1,5 +1,7 @@
 <?php
 
+header('Access-Control-Allow-Origin: *');
+
 require_once 'Usuarios.php';
 require_once 'Tarefas.php';
 require_once 'Fb.php';
