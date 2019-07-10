@@ -25,7 +25,7 @@ export class Login {
 
         // Botao para login com o facebook
         $$('#fb').click(() => {
-            fetch('/api?acao=fbLink')
+            fetch('/api/?acao=fbLink')
                 .then(response => response.json())
                 .then(({ link }) => {
                     console.log(`Link`, link)
@@ -39,7 +39,7 @@ export class Login {
         this.btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'
         this.btn.disabled = true
 
-        fetch(`/api?acao=getUser&user=${body.get('user')}`)
+        fetch(`/api/?acao=getUser&user=${body.get('user')}`)
             .then(response => response.json())
             .then(user => {
                 if (!user) this.error('Usuário inválido')
