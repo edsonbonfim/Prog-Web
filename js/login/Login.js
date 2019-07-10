@@ -44,7 +44,7 @@ export class Login {
             .then(user => {
                 if (!user) this.error('Usuário inválido')
 
-                fetch('/api?acao=login', { method: 'post', body })
+                fetch('/api/?acao=login', { method: 'post', body })
                     .then(response => response.json())
                     .then(user => {
                         if (!user)
