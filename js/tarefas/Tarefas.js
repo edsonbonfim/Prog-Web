@@ -1,60 +1,88 @@
 'use strict'
 
-import { $, Auth } from '../Done.js'
+import { $$, Auth } from '../Done.js'
 import { view } from './tarefas.view.js'
 
 export class Tarefas {
 
     constructor() {
-        
+
         Auth.checkLogin(true)
-        
+
         // Informacoes da sessao do usuario
         this.user = JSON.parse(localStorage.getItem('user'))
-        
-        $('body').innerHTML = view.user
-        
+
+        $$('body').innerHTML = view.tarefas
+
         // lista de tarefas do usuario
-        this.tarefas = $('ul#tarefas')
+        this.tarefas = $$('ul#tarefas')
+
+        $$('form').submit(this.newTarefa.bind(this))
 
         this.getTarefas()
+    }
 
-        $('input[name=titulo]').listener('focus', this.evFormulario.bind(this))
+    newTarefa({ form, body }) {
+
+        body.append('user', this.user.id_usuario)
+
+        fetch('/api/?acao=addTarefa', { method: 'post', body })
+            .then(response => response.json())
+            .then(tarefa => {
+                this.appendTarefa(tarefa)
+                form.reset()
+            })
     }
 
     // Buscas as tarefas do usuario e adiciona na lista de tarefas
     getTarefas() {
-        fetch('/api/?tarefas=' + this.user.id_usuario)
+        fetch('/api/?acao=getTarefas&user=' + this.user.id_usuario)
             .then(response => response.json())
             .then(tarefas => tarefas.forEach(tarefa => this.appendTarefa(tarefa)))
     }
 
-    // Adiciona uma tarefa na lista de tarefas
-    appendTarefa(tarefa) {
-        let elem = document.createElement('li');
-        elem.innerHTML = /*html*/`
-            <li>
-                <div class="header">
-                    ${tarefa.titulo}
-                </div>
-                <div class="main">
-                    ${tarefa.descricao}
-                </div>
-            </li>
-        `
-        this.tarefas.appendChild(elem)
+    formatData(data) {
+        let dateTimeParts = data.split(/[- :]/);
+        dateTimeParts[1]--;
+        return new Date(...dateTimeParts);
     }
 
-    evFormulario({ target, callback }) {
+    // Adiciona uma tarefa na lista de tarefas
+    appendTarefa(tarefa) {
+        const inicio = this.formatData(tarefa.inicio)
+        const fim = this.formatData(tarefa.fim)
 
-        target.removeEventListener('focus', callback, true)
+        let elem = document.createElement('li');
+        elem.id = 'id-' + tarefa.id_tarefa
+        elem.innerHTML = `
+            ${tarefa.descricao}
+            <span>
+                De:
+                ${this.addZero(inicio.getDate())}/${this.addZero(inicio.getMonth() + 1)}/${inicio.getFullYear()} (${this.addZero(inicio.getHours())}:${this.addZero(inicio.getUTCMinutes())})
+                até:
+                ${this.addZero(fim.getDate())}/${this.addZero(fim.getMonth() + 1)}/${fim.getFullYear()} (${this.addZero(fim.getHours())}:${this.addZero(fim.getUTCMinutes())})
+            </span>
+            <i class="fas fa-times"></i>
+        `
+        this.tarefas.appendChild(elem)
 
-        target.placeholder = "Titulo..."
+        $$('#id-' + tarefa.id_tarefa + ' i').click(() => {
+            this.remove(elem)
+        })
+    }
 
-        let mais = document.createElement('div')
-        mais.innerHTML = view.mais
+    addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
 
-        let form = target.parentNode
-        form.appendChild(mais)
+    remove(li) {
+        let id = li.id.replace('id-', '')
+        fetch('/api/?acao=delTarefa&tarefa=' + id)
+            .then(() => {
+                li.remove();
+            })
     }
 }

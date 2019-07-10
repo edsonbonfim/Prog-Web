@@ -1,4 +1,4 @@
-import { $, Auth, Route } from '../Done.js';
+import { $$, Auth, Route } from '../Done.js';
 import { view } from './login.view.js'
 
 export class Login {
@@ -8,20 +8,29 @@ export class Login {
         Auth.checkLogin(false)
 
         // Renderiza a pagina de login
-        $('#done').innerHTML = view.login
+        $$('#done').innerHTML = view.login
 
-        this.btn = $('button')
+        this.btn = $$('button')
 
         // Foco no primeiro campo do formulario
-        $('[name=user]').focus()
+        $$('[name=user]').focus()
 
         // Link que carrega a pagina de criar conta
-        $('#link-signup').link()
+        $$('#link-signup').link()
 
-        // $('#link-forget').click(a => alert('Este recurso ainda nao esta disponivel'))
+        // $$('#link-forget').click(a => alert('Este recurso ainda nao esta disponivel'))
 
         // Evento disparado quando o formulario de login for submetido
-        $('form').submit(this.login.bind(this))
+        $$('form').submit(this.login.bind(this))
+
+        // Botao para login com o facebook
+        $$('#fb').click(() => {
+            fetch('/api?acao=fbLink')
+                .then(response => response.json())
+                .then(({ link }) => {
+                    console.log(`Link`, link)
+                })
+        })
     }
 
     login({ body }) {
@@ -29,12 +38,12 @@ export class Login {
         this.btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'
         this.btn.disabled = true
 
-        fetch(`/api/?user=${body.get('user')}`)
+        fetch(`/api?acao=getUser&user=${body.get('user')}`)
             .then(response => response.json())
             .then(user => {
                 if (!user) this.error('Usuário inválido')
 
-                fetch('/api/?login', { method: 'post', body })
+                fetch('/api?acao=login', { method: 'post', body })
                     .then(response => response.json())
                     .then(user => {
                         if (!user)
@@ -47,7 +56,7 @@ export class Login {
     }
 
     error(msg) {
-        let p = $('p')
+        let p = $$('p')
         p.innerText = msg
         p.style = 'color: red; font-weight: bold'
         this.btn.innerHTML = 'Entrar'

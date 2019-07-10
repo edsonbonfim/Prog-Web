@@ -8,9 +8,13 @@ class BD
     {
         if (!isset(self::$dbh) || is_null(self::$dbh))
         {
-            // self::$dbh = new PDO('mysql:host=localhost;dbname=id9378600_done', 'id9378600_done', 'donedone');
-            self::$dbh = new PDO('mysql:host=localhost;dbname=done', 'root', '');
-            self::$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            try {
+                // self::$dbh = new PDO('mysql:host=localhost;dbname=id9378600_done', 'id9378600_done', 'donedone');
+                self::$dbh = new PDO('pgsql:host=ec2-54-83-1-101.compute-1.amazonaws.com;dbname=dfgj4371d1o9e0', 'hbleunknylyume', '6b442f893080ea6a1703b1cf747a2ec4a040d75abd753cca88b7d2cfba67d5e1');
+                self::$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (\PDOException $e) {
+                die($e->getMessage());
+            }
         }
         return self::$dbh;
     }

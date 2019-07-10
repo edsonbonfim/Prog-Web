@@ -1,8 +1,8 @@
 'use strict'
 
-export { $, Route, Auth }
+export { $$, Route, Auth }
 
-function $(q) {
+function $$(q) {
     return new Proxy(new Done(q), {
         get: (alvo, nome) => {
             return nome in alvo ? alvo[nome] : alvo.elem[nome]
@@ -134,7 +134,7 @@ class Auth {
     }
 
     static checkUser(user, callback) {
-        fetch('/api/?user=' + user)
+        fetch('/api/?acao=getUser&user=' + user)
             .then(response => response.json())
             .then(user => callback(user))
             .catch(e => { throw Error(e) })

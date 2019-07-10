@@ -1,6 +1,6 @@
 'use strict'
 
-import { $, Auth, Route } from '../Done.js'
+import { $$, Auth, Route } from '../Done.js'
 import { view } from './signup.view.js'
 
 export class Signup {
@@ -12,16 +12,16 @@ export class Signup {
         this.body = new FormData()
 
         // Renderiza a pagina de cadastro
-        $('#done').innerHTML = view.header
+        $$('#done').innerHTML = view.header
 
         this.passo1()
     }
 
     passo1() {
 
-        $('#form').innerHTML = view.passo1
+        $$('#form').innerHTML = view.passo1
 
-        let nome = $('[name=nome]')
+        let nome = $$('[name=nome]')
 
         // Foco no primeiro input do formulario
         nome.focus()
@@ -31,18 +31,18 @@ export class Signup {
             nome.value = this.body.get('nome')
 
         if (this.body.get('email'))
-            $('[name=email]').value = this.body.get('email')
+            $$('[name=email]').value = this.body.get('email')
 
         // Listener para o link de login
-        $('#link-login').link()
+        $$('#link-login').link()
 
         // Listener para o botao 'continuar'
-        $('#form-continuar').submit(this.passo2.bind(this))
+        $$('#form-continuar').submit(this.passo2.bind(this))
     }
 
     passo2({ body }) {
 
-        let btn = $('button')
+        let btn = $$('button')
 
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'
         btn.disabled = true
@@ -55,7 +55,7 @@ export class Signup {
             this.body.set('email', body.get('email'))
 
             if (user) {
-                let p = $('p')
+                let p = $$('p')
                 p.innerText = 'E-mail já cadastrado'
                 p.style = 'color: rgb(255, 0, 0); font-weight: bold'
                 btn.innerHTML = 'Continuar'
@@ -64,25 +64,25 @@ export class Signup {
             }
 
             // Renderiza o segundo passo do formulario de cadastro
-            $('#form').innerHTML = view.passo2
+            $$('#form').innerHTML = view.passo2
 
             // Foco no primeiro input do formulario
-            $('[name=usuario]').focus()
+            $$('[name=usuario]').focus()
 
             // Listener para o link de login
-            $('#link-login').link()
+            $$('#link-login').link()
 
             // Listener para o link 'voltar'
-            $('#link-voltar').click(this.passo1.bind(this))
+            $$('#link-voltar').click(this.passo1.bind(this))
 
             // Listener para o botao 'Criar minha conta'
-            $('#form-signup').submit(this.signup.bind(this))
+            $$('#form-signup').submit(this.signup.bind(this))
         })
     }
 
     signup({ body }) {
 
-        let btn = $('button')
+        let btn = $$('button')
 
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'
         btn.disabled = true
@@ -91,7 +91,7 @@ export class Signup {
         Auth.checkUser(body.get('usuario'), user => {
 
             if (user) {
-                let p = $('p')
+                let p = $$('p')
                 p.innerText = 'Usuário já cadastrado'
                 p.style = 'color: rgb(255, 0, 0); font-weight: bold'
                 btn.innerHTML = 'Criar minha conta'
@@ -102,7 +102,7 @@ export class Signup {
             body.append('nome', this.body.get('nome'))
             body.append('email', this.body.get('email'))
 
-            fetch('/api/?signup', { method: 'post', body })
+            fetch('/api/?acao=signup', { method: 'post', body })
                 .then(response => response.json())
                 .then(user => {
                     localStorage.setItem('user', JSON.stringify(user))
