@@ -19,7 +19,7 @@ export class Tarefas {
 
         $$('form').submit(this.newTarefa.bind(this))
 
-        this.getTarefas()
+        window.setInterval(this.getTarefas.bind(this), 2000)
     }
 
     newTarefa({ form, body }) {
@@ -38,7 +38,10 @@ export class Tarefas {
     getTarefas() {
         fetch('/api/?acao=getTarefas&user=' + this.user.id_usuario)
             .then(response => response.json())
-            .then(tarefas => tarefas.forEach(tarefa => this.appendTarefa(tarefa)))
+            .then(tarefas => {
+                document.getElementById('tarefas').innerHTML = ''
+                tarefas.forEach(tarefa => this.appendTarefa(tarefa))
+            })
     }
 
     formatData(data) {

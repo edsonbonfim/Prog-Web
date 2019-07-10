@@ -29,6 +29,7 @@ export class Login {
                 .then(response => response.json())
                 .then(({ link }) => {
                     console.log(`Link`, link)
+                    window.location = link
                 })
         })
     }
